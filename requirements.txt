@@ -5,10 +5,12 @@ aiogram>=3.0.0
 sqlalchemy>=2.0.0
 alembic>=1.12.0
 
-# LLM & NLP
-openai>=1.0.0
+# LLM & NLP (Yandex GPT)
+yandexcloud>=0.227.0
+requests>=2.31.0
 
-# Speech Processing
+# Speech Processing (Whisper от OpenAI)
+openai>=1.0.0
 openai-whisper>=20231117
 pydub>=0.25.1
 
