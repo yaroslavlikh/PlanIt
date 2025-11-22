@@ -1,0 +1,33 @@
+# Telegram Bot
+aiogram>=3.0.0
+
+# Database
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+
+# LLM & NLP
+openai>=1.0.0
+
+# Speech Processing
+openai-whisper>=20231117
+pydub>=0.25.1
+
+# Configuration
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+
+# Encryption
+cryptography>=41.0.0
+
+# Google Calendar API
+google-api-python-client>=2.100.0
+google-auth-httplib2>=0.1.1
+google-auth-oauthlib>=1.1.0
+
+# Todoist API
+todoist-api-python>=2.0.0
+
+# Utilities
+python-dateutil>=2.8.2
+
