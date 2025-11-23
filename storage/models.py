@@ -1,2 +1,1 @@
 """Модели: User, Task, IntegrationToken."""
-
