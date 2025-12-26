@@ -8,8 +8,10 @@ def init_db():
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
         title TEXT NOT NULL,
+        start_date TEXT,
         start_time TEXT,
         end_time TEXT,
-        description TEXT);""")
+        description TEXT,
+        type TEXT NOT NULL);""")
     conn.commit()
     conn.close()
