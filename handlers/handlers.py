@@ -3,7 +3,9 @@ import sqlite3
 from api.whisper import new_voice
 from api.llm import ask_qwen
 from handlers.return_task import ret_cal, ret_task
-from handlers.inlinemarkups import main_keyboard, new_task_keyboard, all_tasks_markup, start_keyboard
+from handlers.inlinemarkups import (
+    main_keyboard, new_task_keyboard, all_tasks_markup, start_keyboard, agree_task_keyboard
+)
 
 def load_handlers(bot):
     @bot.message_handler(commands=['start'])
@@ -51,9 +53,12 @@ def load_handlers(bot):
         conn.close()
         if type_of == "расписание":
             ans = ret_cal(info)
+            ans = ', '.join(ans)
         else:
             ans = ret_task(info)
-        bot.send_message(message.chat.id, "Услышал родной, иди нахуй", reply_markup=new_task_keyboard)
+            ans = ', '.join(ans)
+        bot.send_message(message.chat.id, f'Добавляем в {type_of}?:\n{ans}', reply_markup=agree_task_keyboard)
+        
 
     ##################################### просмотр расписания
     @bot.callback_query_handler(func=lambda call: call.data == "calendar")

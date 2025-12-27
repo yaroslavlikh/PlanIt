@@ -21,6 +21,15 @@ def main_markup():
 main_keyboard = main_markup()
 
 ####################### инлайн клава после добавления новой задачи
+def agree_task_markup():
+    keyboard = types.InlineKeyboardMarkup() 
+    button1 = types.InlineKeyboardButton("Ок", callback_data="okey")
+    button2 = types.InlineKeyboardButton("Изменить", callback_data="change")
+    keyboard.add(button1, button2)
+    return keyboard
+
+agree_task_keyboard = agree_task_markup()
+
 def new_task_markup():
     keyboard = types.InlineKeyboardMarkup() 
     button1 = types.InlineKeyboardButton("Календарь", callback_data="calendar")
