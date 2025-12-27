@@ -21,3 +21,14 @@ def new_task_markup():
     return keyboard
 
 new_task_keyboard = new_task_markup()
+
+####################### инлайн клава после вывода всех задач/расписания
+def all_tasks_markup():
+    keyboard = types.InlineKeyboardMarkup() 
+    button1 = types.InlineKeyboardButton("Календарь", callback_data="calendar")
+    button2 = types.InlineKeyboardButton("Новая задача", callback_data="tasks")
+    button3 = types.InlineKeyboardButton("Удалить задачу", callback_data="delete_task")
+    keyboard.add(button1, button2, button3)
+    return keyboard
+
+all_tasks_keyboard = all_tasks_markup()

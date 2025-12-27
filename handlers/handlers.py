@@ -3,7 +3,7 @@ import sqlite3
 from api.whisper import new_voice
 from api.llm import ask_qwen
 from handlers.return_task import ret_cal, ret_task
-from handlers.inlinemarkups import main_keyboard, new_task_keyboard
+from handlers.inlinemarkups import main_keyboard, new_task_keyboard, all_tasks_keyboard
 
 def load_handlers(bot):
     @bot.message_handler(commands=['start'])
@@ -67,9 +67,9 @@ def load_handlers(bot):
             task_parts = ret_cal(el)
             res += ', '.join(task_parts) + '\n'
         if not tasks or not res.strip():
-            bot.send_message(call.message.chat.id, 'У вас пока нет планов')
+            bot.send_message(call.message.chat.id, 'У вас пока нет планов', reply_markup=all_tasks_keyboard)
         else:
-            bot.send_message(call.message.chat.id, f"Вот все твое расписание:\n {res}")
+            bot.send_message(call.message.chat.id, f"Вот все твое расписание:\n {res}", reply_markup=all_tasks_keyboard)
 
     ##################################### просмотр задач
     @bot.callback_query_handler(func=lambda call: call.data == "tasks")
@@ -90,6 +90,6 @@ def load_handlers(bot):
             task_parts = ret_task(el)
             res += ', '.join(task_parts) + '\n'
         if not tasks or not res.strip():
-            bot.send_message(call.message.chat.id, "У вас пока нет задач")
+            bot.send_message(call.message.chat.id, "У вас пока нет задач", reply_markup=all_tasks_keyboard)
         else:
-            bot.send_message(call.message.chat.id, f"Вот все твое расписание:\n {res}")
+            bot.send_message(call.message.chat.id, f"Вот все твое расписание:\n {res}", reply_markup=all_tasks_keyboard)
