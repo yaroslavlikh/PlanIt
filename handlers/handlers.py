@@ -1,7 +1,6 @@
-from telebot import types
 import sqlite3
-from api.whisper import new_voice
-from api.llm import ask_qwen
+from voice_dec.whisper import new_voice
+from llm.llm import ask_qwen
 from handlers.return_task import ret_cal, ret_task
 from handlers.inlinemarkups import (
     main_keyboard, new_task_keyboard, all_tasks_markup, start_keyboard, agree_task_keyboard
@@ -58,7 +57,10 @@ def load_handlers(bot):
             ans = ret_task(info)
             ans = ', '.join(ans)
         bot.send_message(message.chat.id, f'Добавляем в {type_of}?:\n{ans}', reply_markup=agree_task_keyboard)
-        
+
+    @bot.callback_query_handler(func=lambda call: call.data == "okey") # обработчик согласия с задачей
+    def agree_task(call):
+        bot.send_message(call.message.chat.id, f'Добавлено!', reply_markup=new_task_keyboard)
 
     ##################################### просмотр расписания
     @bot.callback_query_handler(func=lambda call: call.data == "calendar")

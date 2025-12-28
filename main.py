@@ -1,5 +1,5 @@
 import telebot
-from config import get_token
+from config import get_token_bot
 from handlers.handlers import load_handlers
 from db import init_db
 
@@ -13,5 +13,5 @@ def start_app(token):
 
 
 if __name__ == '__main__':
-    token = get_token()
+    token = get_token_bot()
     start_app(token)
