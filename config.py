@@ -29,5 +29,3 @@ def get_token_gemini():
             return GEMINI_API_KEY
     except Exception as e:
         print(f"Ошибка при подгрузке токена gemini: {e}")
-
-        
