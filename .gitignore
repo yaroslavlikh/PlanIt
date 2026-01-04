@@ -1,3 +1,6 @@
 __pycache__
 tasks.sql
 .env
+tmp/__pycache__
+voice_dec/__pycache__
+handlers/__pycache__

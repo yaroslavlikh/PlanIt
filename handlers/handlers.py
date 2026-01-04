@@ -24,7 +24,7 @@ def load_handlers(bot):
     def add_name_new_task(call):
         bot.delete_message(call.message.chat.id, call.message.message_id)
         print("Перешел в создание новой задачи")
-        bot.send_message(call.message.chat.id, "Введите всю информацию про задачу в свободной форме")
+        bot.send_message(call.message.chat.id, "Расскажите всю информацию про задачу в свободной форме")
         bot.register_next_step_handler(call.message, add_new_task)
     
     def add_new_task(message):
@@ -34,14 +34,17 @@ def load_handlers(bot):
         if message.content_type == 'text':
             info = message.text.strip()
         info = ask_qwen(info)
+        print(info)
         info = [el.strip("}").strip("{") for el in info.split("; ")]
+        print(info)
         title = info[0]
         start_date = info[1]
         start_time = info[2]
         end_time = info[3]
         description = info[4]
         type_of = info[5]
-        conn = sqlite3.connect('tasks.sql')
+        print(f'Добавляем новую задачу: {title}, {start_date}, {start_time}, {end_time}, {description}, {type_of}')
+        conn = sqlite3.connect('tmp/tasks.sql')
         cursor = conn.cursor()
         cursor.execute(
             'INSERT INTO tasks (user_id, title, start_date, start_time, end_time, description, type) VALUES (?, ?, ?, ?, ?, ?, ?);',
@@ -67,7 +70,7 @@ def load_handlers(bot):
     def get_calendar(call):
         bot.delete_message(call.message.chat.id, call.message.message_id)
         print("Выводим расписание")
-        conn = sqlite3.connect('tasks.sql')
+        conn = sqlite3.connect('tmp/tasks.sql')
         cursor = conn.cursor()
         cursor.execute(
             "SELECT * FROM tasks WHERE user_id = ? AND type = ?;",
@@ -94,7 +97,7 @@ def load_handlers(bot):
     def get_all_tasks(call):
         bot.delete_message(call.message.chat.id, call.message.message_id)
         print("Выводим задачи")
-        conn = sqlite3.connect('tasks.sql')
+        conn = sqlite3.connect('tmp/tasks.sql')
         cursor = conn.cursor()
         cursor.execute(
             "SELECT * FROM tasks WHERE user_id = ? AND type = ?;",
