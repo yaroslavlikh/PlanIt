@@ -1,10 +1,7 @@
 from llm.prompt import prompt_editing
 from llm.gemini import client
 from pydantic import BaseModel, Field
-
-class TypeOfTask(BaseModel):
-    calendar = "календарь"
-    task = "задача"
+from typing import Literal
 
 class Task(BaseModel):
     title: str = Field(min_length=1)
@@ -12,7 +9,7 @@ class Task(BaseModel):
     start_time: str = Field(min_length=4)
     end_time: str = Field(default=" ")
     description: str = Field(default=" ")
-    type_of: TypeOfTask = Field(default="задача")
+    type_of: Literal["календарь", "задача"] = Field(default="задача")
 
 def ask_qwen(prompt):
     response = client.models.generate_content(
