@@ -1,0 +1,5 @@
+pyTelegramBotAPI
+google
+google-genai
+python-dotenv
+faster-whisper
