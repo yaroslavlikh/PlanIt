@@ -1,19 +1,19 @@
 def ret_cal(el):
     task_parts = []
 
-    task_parts.append(f'Название: {el[0]}')
+    task_parts.append(f'Название: {el["title"]}')
 
-    if el[1] and el[1].strip():
-        if el[2] and el[2].strip():
-            task_parts.append(f'Начало: {el[1]} в {el[2]}')
+    if el["start_date"] and el["start_date"].strip():
+        if el["start_time"] and el["start_time"].strip():
+            task_parts.append(f'Начало: {el["start_date"]} в {el["start_time"]}')
         else:
-            task_parts.append(f'Начало: {el[1]}')
+            task_parts.append(f'Начало: {el["start_date"]}')
 
-    if el[3] and el[3].strip():
-        task_parts.append(f'Конец: {el[3]}')
+    if el["end_time"] and el["end_time"].strip():
+        task_parts.append(f'Конец: {el["end_time"]}')
 
-    if el[4] and el[4].strip():
-        task_parts.append(f'Описание: {el[4]}')
+    if el["description"] and el["description"].strip():
+        task_parts.append(f'Описание: {el["description"]}')
 
     print(task_parts, ', '.join(task_parts))
     return task_parts
@@ -22,16 +22,16 @@ def ret_cal(el):
 def ret_task(el):
     task_parts = []
 
-    task_parts.append(f'Название: {el[0]}')
+    task_parts.append(f'Название: {el["title"]}')
 
-    if el[4] and el[4].strip():
-        task_parts.append(f'Описание: {el[4]}')
+    if el["description"] and el["description"].strip():
+        task_parts.append(f'Описание: {el["description"]}')
 
-    if el[1] and el[1].strip():
-        if el[2] and el[2].strip():
-            task_parts.append(f'Когда надо сделать: {el[1]} в {el[2]}')
+    if el["start_date"] and el["start_date"].strip():
+        if el["start_time"] and el["start_time"].strip():
+            task_parts.append(f'Когда надо сделать: {el["start_date"]} в {el["start_time"]}')
         else:
-            task_parts.append(f'Когда надо сделать: {el[1]}')
+            task_parts.append(f'Когда надо сделать: {el["start_date"]}')
 
     print(task_parts, ', '.join(task_parts))
     return task_parts
