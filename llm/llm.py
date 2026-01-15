@@ -13,7 +13,7 @@ class Task(BaseModel):
 
 def ask_qwen(prompt):
     response = client.models.generate_content(
-        model="gemini-flash-latest", 
+        model="gemini-flash-latest",
         contents=prompt_editing + prompt,
         config={
         "response_mime_type": "application/json",

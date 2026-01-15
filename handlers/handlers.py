@@ -54,12 +54,12 @@ def load_handlers(bot):
         conn.close()
 
         if type_of == "расписание":
-            ans = ret_cal(parsed_info)
+            ans = ret_cal(info)
             ans = ', '.join(ans)
         else:
-            ans = ret_task(parsed_info)
+            ans = ret_task(info)
             ans = ', '.join(ans)
-            
+
         bot.send_message(message.chat.id, f'Добавляем в {type_of}?:\n{ans}', reply_markup=agree_task_keyboard)
 
     @bot.callback_query_handler(func=lambda call: call.data == "okey") # обработчик согласия с задачей
