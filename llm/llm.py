@@ -6,7 +6,7 @@ from typing import Literal
 class Task(BaseModel):
     title: str = Field(min_length=1)
     start_date: str = Field(min_length=1)
-    start_time: str = Field(min_length=4)
+    start_time: str = Field(min_length=1)
     end_time: str = Field(default=" ")
     description: str = Field(default=" ")
     type_of: Literal["календарь", "задача"] = Field(default="задача")
