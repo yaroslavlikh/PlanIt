@@ -21,7 +21,7 @@ def ret_cal(el):
 
 def ret_task(el):
     task_parts = []
-
+    print(el)
     task_parts.append(f'Название: {el["title"]}')
 
     if el["description"] and el["description"].strip():
