@@ -1,6 +1,7 @@
 import sqlite3
 from voice_dec.whisper import new_voice
 from llm.llm import ask_qwen
+from handlers.parsing_ans import parse_answer
 from handlers.return_task import ret_cal, ret_task
 from handlers.inlinemarkups import (
     main_keyboard, new_task_keyboard, all_tasks_markup, start_keyboard, agree_task_keyboard
@@ -34,16 +35,14 @@ def load_handlers(bot):
         if message.content_type == 'text':
             info = message.text.strip()
         info = ask_qwen(info)
-        print(info)
-        info = [el.strip("}").strip("{") for el in info.split("; ")]
-        print(info)
-        title = info[0]
-        start_date = info[1]
-        start_time = info[2]
-        end_time = info[3]
-        description = info[4]
-        type_of = info[5]
-        print(f'Добавляем новую задачу: {title}, {start_date}, {start_time}, {end_time}, {description}, {type_of}')
+        parsed_info = parse_answer(info)
+        title = parsed_info['title']
+        start_date = parsed_info['start_date']
+        start_time = parsed_info['start_time']
+        end_time = parsed_info['end_time']
+        description = parsed_info['description']
+        type_of = parsed_info['type_of']
+
         conn = sqlite3.connect('tmp/tasks.sql')
         cursor = conn.cursor()
         cursor.execute(
@@ -53,11 +52,12 @@ def load_handlers(bot):
         conn.commit()
         cursor.close()
         conn.close()
+
         if type_of == "расписание":
-            ans = ret_cal(info)
+            ans = ret_cal(parsed_info)
             ans = ', '.join(ans)
         else:
-            ans = ret_task(info)
+            ans = ret_task(parsed_info)
             ans = ', '.join(ans)
         bot.send_message(message.chat.id, f'Добавляем в {type_of}?:\n{ans}', reply_markup=agree_task_keyboard)
 
