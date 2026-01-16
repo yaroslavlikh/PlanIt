@@ -11,7 +11,7 @@ class Task(BaseModel):
     description: str = Field(default=" ")
     type_of: Literal["календарь", "задача"] = Field(default="задача")
 
-def ask_qwen(prompt):
+def ask_llm(prompt):
     response = client.models.generate_content(
         model="gemini-flash-latest",
         contents=prompt_editing + prompt,

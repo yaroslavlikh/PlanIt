@@ -1,6 +1,6 @@
 import sqlite3
 from voice_dec.whisper import new_voice
-from llm.llm import ask_qwen
+from llm.llm import ask_llm
 from handlers.parsing_ans import parse_answer
 from handlers.return_task import ret_cal, ret_task
 from handlers.inlinemarkups import (
@@ -34,7 +34,7 @@ def load_handlers(bot):
             info = new_voice(message, bot)
         if message.content_type == 'text':
             info = message.text.strip()
-        info = ask_qwen(info)
+        info = ask_llm(info)
         parsed_info = parse_answer(info)
         title = parsed_info['title']
         start_date = parsed_info['start_date']
